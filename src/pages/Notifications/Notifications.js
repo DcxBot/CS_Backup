@@ -10,6 +10,8 @@ import {
 import { crossSwitchDashboardData } from "../../mockData/crossSwitchDashboardData";
 import { peachDashboardData } from "../../mockData/peachDashboardData";
 import { ozowDashboardData } from "../../mockData/ozowDashboardData";
+import { NotificationIcons } from "../../Icons/SVGicons";
+import { EnvelopeIcon } from "../../Icons/SVGicons";
 
 function Notifications() {
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -348,8 +350,15 @@ function Notifications() {
                 rx="2"
                 ry="2"
                 fill="#ff6b35"
+                stroke="#ff6b35"
+                strokeWidth="2"
               />
-              <path d="M4 6l8 6 8-6" fill="white" />
+              <path
+                d="M4 6l8 6 8-6"
+                fill="white"
+                stroke="#ff6b35"
+                strokeWidth="1"
+              />
             </svg>
           </div>
           <div className="card-content">
@@ -360,21 +369,11 @@ function Notifications() {
 
         <div className="notification-card">
           <div className="card-icon eye-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <path
-                d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"
-                fill="#ef4444"
-              />
-              <circle cx="12" cy="12" r="3" fill="white" />
-              <line
-                x1="1"
-                y1="1"
-                x2="23"
-                y2="23"
-                stroke="white"
-                strokeWidth="2"
-              />
-            </svg>
+            <div
+              dangerouslySetInnerHTML={{
+                __html: NotificationIcons.unreadBadge(24, "#EF4444"),
+              }}
+            />
           </div>
           <div className="card-content">
             <div className="card-count">9</div>
@@ -384,28 +383,11 @@ function Notifications() {
 
         <div className="notification-card">
           <div className="card-icon warning-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <path
-                d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"
-                fill="#ff6b35"
-              />
-              <line
-                x1="12"
-                y1="9"
-                x2="12"
-                y2="13"
-                stroke="white"
-                strokeWidth="2"
-              />
-              <line
-                x1="12"
-                y1="17"
-                x2="12.01"
-                y2="17"
-                stroke="white"
-                strokeWidth="2"
-              />
-            </svg>
+            <div
+              dangerouslySetInnerHTML={{
+                __html: NotificationIcons.actionRequired(24, "#F59E0B"),
+              }}
+            />
           </div>
           <div className="card-content">
             <div className="card-count">8</div>
@@ -415,25 +397,11 @@ function Notifications() {
 
         <div className="notification-card">
           <div className="card-icon priority-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <circle cx="12" cy="12" r="10" fill="#ef4444" />
-              <line
-                x1="12"
-                y1="8"
-                x2="12"
-                y2="12"
-                stroke="white"
-                strokeWidth="2"
-              />
-              <line
-                x1="12"
-                y1="16"
-                x2="12.01"
-                y2="16"
-                stroke="white"
-                strokeWidth="2"
-              />
-            </svg>
+            <div
+              dangerouslySetInnerHTML={{
+                __html: NotificationIcons.highPriority(24, "#EF4444"),
+              }}
+            />
           </div>
           <div className="card-content">
             <div className="card-count">3</div>
@@ -449,24 +417,7 @@ function Notifications() {
             <h2 className="all-notifications-title">All Notifications</h2>
             <span className="unread-badge">9 Unread</span>
           </div>
-          <button className="mark-all-read-btn">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-              <path
-                d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"
-                fill="white"
-              />
-              <circle cx="12" cy="12" r="3" fill="white" />
-              <line
-                x1="1"
-                y1="1"
-                x2="23"
-                y2="23"
-                stroke="white"
-                strokeWidth="2"
-              />
-            </svg>
-            Mark All as Read
-          </button>
+          <button className="mark-all-read-btn">Mark All as Read</button>
         </div>
 
         <div className="notification-categories">
@@ -515,12 +466,14 @@ function Notifications() {
           >
             <div className="category-left">
               <div className="category-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                  <path
-                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
-                    fill="#0f5132"
-                  />
-                </svg>
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: NotificationIcons.systemNotifications(
+                      20,
+                      "#3B82F6"
+                    ),
+                  }}
+                />
               </div>
               <div className="category-info">
                 <span className="category-name">System Notifications</span>
