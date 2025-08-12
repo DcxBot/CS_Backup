@@ -1,0 +1,82 @@
+/* Summary Card Styles */
+.summary-card {
+  background-color: #FFFFFF;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  border: 1px solid #E5E7EB;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  z-index: 10;
+}
+
+.summary-card:hover {
+  box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1);
+  transform: scale(1.05);
+}
+
+.summary-card .card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.summary-card .card-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #6B7280;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.summary-card .card-icon {
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+}
+
+.summary-card .card-value {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.summary-card .card-description {
+  font-size: 0.875rem;
+  color: #6B7280;
+  font-weight: 500;
+}
+
+/* Specific card styles */
+.total-card {
+  background-color: #CCFBF1;
+}
+
+.matched-card {
+  background-color: #DCFCE7;
+}
+
+.unmatched-card {
+  background-color: #FEE2E2;
+}
+
+.exceptions-card {
+  background-color: #FED7AA;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .summary-card {
+    padding: 1rem;
+  }
+  
+  .summary-card .card-value {
+    font-size: 1.5rem;
+  }
+}

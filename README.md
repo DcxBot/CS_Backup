@@ -1,70 +1,115 @@
-# Getting Started with Create React App
+# Peach Dashboard
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A comprehensive reconciliation dashboard for Peach transactions built with React.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- **Summary Cards**: Overview of total transactions, matched percentage, unmatched count, and exceptions
+- **Advanced Filtering**: Filter by date range, payment type, status, reference, amount, and merchant details
+- **Transactions Table**: Detailed view of all transactions with sorting and filtering capabilities
+- **Comment System**: Add and edit comments for individual transactions
+- **Export Functionality**: Export filtered transactions to CSV
+- **Responsive Design**: Mobile-friendly interface with modern UI
 
-### `npm start`
+## Navigation
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Main Dashboard**: Click the "View Dashboard" button on the Peach card
+- **Back Navigation**: Use the "← Back to Dashboard" button to return to the main dashboard
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Components
 
-### `npm test`
+### SummaryCard
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Displays key metrics with icons and color-coded backgrounds:
 
-### `npm run build`
+- Total Transactions (Teal)
+- % Matched (Green)
+- Unmatched (Red)
+- Exceptions (Orange)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### FilterPanel
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Comprehensive filtering options:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Date Range
+- Payment Type
+- Status
+- Reference/CS+ ID
+- Amount Range
+- Merchant Group
+- Merchant Name
 
-### `npm run eject`
+### TransactionsTable
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Detailed transaction view with:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- CS+ ID and Reference
+- Date and Amount
+- Status badges (Matched/Unmatched/Flagged)
+- Source and Flag information
+- Comment actions
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### CommentModal
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Add or edit transaction comments with:
 
-## Learn More
+- Transaction ID display
+- Textarea for comments
+- Save/Cancel functionality
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### StatusBadge
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Visual status indicators with appropriate colors:
 
-### Code Splitting
+- Matched: Green
+- Unmatched: Red
+- Flagged: Orange
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Styling
 
-### Analyzing the Bundle Size
+All styles are organized in the `src/styles/` folder:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- `PeachDashboard.css` - Main dashboard layout and background shapes
+- `SummaryCard.css` - Summary card styling and hover effects
+- `FilterPanel.css` - Filter panel layout and input styling
+- `TransactionsTable.css` - Table styling and responsive design
+- `CommentModal.css` - Modal overlay and form styling
+- `StatusBadge.css` - Status badge colors and animations
 
-### Making a Progressive Web App
+## Data Structure
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Mock data is located in `src/mockData/peachDashboardData.js` and includes:
 
-### Advanced Configuration
+- Transaction records with all necessary fields
+- Filter options for dropdowns
+- Summary statistics
+- Helper functions for filtering and export
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Color Palette
 
-### Deployment
+The dashboard uses a consistent color scheme:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- Primary: #2D6A5A (Dark Teal)
+- Accent: #FF6B35 (Orange)
+- Success: #22C55E (Green)
+- Warning: #F59E0B (Amber)
+- Danger: #EF4444 (Red)
+- Neutral grays for text and borders
 
-### `npm run build` fails to minify
+## Responsive Design
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+The dashboard is fully responsive with:
+
+- Mobile-first approach
+- Grid layouts that adapt to screen size
+- Touch-friendly buttons and inputs
+- Optimized table display for small screens
+
+## Getting Started
+
+1. Navigate to the main dashboard
+2. Click "View Dashboard" on the Peach card
+3. Use filters to narrow down transactions
+4. Click on transaction rows to add/edit comments
+5. Export filtered results to CSV as needed
+6. Use the back button to return to the main dashboard

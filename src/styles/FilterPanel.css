@@ -1,0 +1,237 @@
+/* Filter Panel Styles */
+.filter-panel {
+  background-color: #FFFFFF;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  margin-bottom: 2rem;
+  border: 1px solid #E5E7EB;
+  position: relative;
+  z-index: 10;
+  transition: all 0.3s ease;
+}
+
+.filter-panel:hover {
+  box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1);
+}
+
+.filter-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2D6A5A;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #F3F4F6;
+}
+
+.filter-header .filter-header-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: #2D6A5A;
+}
+
+.filter-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.filter-input {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  transition: all 0.2s ease;
+}
+
+.filter-input:hover {
+  transform: translateY(-1px);
+}
+
+.filter-input label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #374151;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  margin-bottom: 0.25rem;
+}
+
+.filter-input input,
+.filter-input select {
+  padding: 0.875rem 1rem;
+  border: 2px solid #E5E7EB;
+  border-radius: 0.5rem;
+  background-color: #FFFFFF;
+  color: #111827;
+  font-size: 0.875rem;
+  width: 100%;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.filter-input input:focus,
+.filter-input select:focus {
+  border-color: #2D6A5A;
+  box-shadow: 0 0 0 3px rgba(45, 106, 90, 0.1);
+  outline: none;
+  transform: translateY(-1px);
+}
+
+.filter-input input:hover,
+.filter-input select:hover {
+  border-color: #FF6B35;
+  box-shadow: 0 2px 4px rgba(255, 107, 53, 0.1);
+}
+
+.filter-input input::placeholder {
+  color: #9CA3AF;
+}
+
+/* Specific input type styles */
+.filter-input.number-input input {
+  font-family: 'Courier New', monospace;
+  text-align: right;
+}
+
+.filter-input.text-input input {
+  text-align: left;
+}
+
+.filter-input.search-input input {
+  text-align: left;
+}
+
+/* Input groups with icons */
+.search-input-group,
+.date-range-inputs {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-input-group input,
+.date-range-inputs input {
+  padding-left: 2.75rem;
+}
+
+.input-icon {
+  position: absolute;
+  left: 1rem;
+  z-index: 1;
+  color: #6B7280;
+  transition: color 0.2s ease;
+}
+
+.filter-input:hover .input-icon {
+  color: #FF6B35;
+}
+
+.date-range-inputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.date-input-group {
+  position: relative;
+}
+
+.date-input-group input {
+  padding-left: 2.75rem;
+}
+
+/* Select wrapper for dropdown arrow */
+.select-wrapper {
+  position: relative;
+}
+
+.select-wrapper select {
+  appearance: none;
+  padding-right: 2.75rem;
+}
+
+.select-arrow {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #6B7280;
+  transition: color 0.2s ease;
+}
+
+.filter-input:hover .select-arrow {
+  color: #FF6B35;
+}
+
+.clear-filters-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background-color: #F3F4F6;
+  color: #374151;
+  border: 2px solid #E5E7EB;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  align-self: flex-start;
+}
+
+.clear-filters-btn:hover {
+  background-color: #E5E7EB;
+  color: #2D6A5A;
+  border-color: #2D6A5A;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.clear-filters-btn .clear-icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Date range specific styles */
+.date-input {
+  grid-column: span 2;
+}
+
+.date-input input[type="date"] {
+  min-height: 3rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .filter-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .filter-panel {
+    padding: 1.5rem;
+  }
+  
+  .date-input {
+    grid-column: span 1;
+  }
+  
+  .date-range-inputs {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 1024px) {
+  .filter-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .date-input {
+    grid-column: span 2;
+  }
+}

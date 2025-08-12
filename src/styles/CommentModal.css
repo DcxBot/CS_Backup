@@ -1,0 +1,208 @@
+/* Comment Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.modal-container {
+  background-color: #FFFFFF;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  width: 24rem;
+  max-width: 90vw;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  animation: slideUp 0.3s ease-out;
+}
+
+.modal-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1A3E36;
+  margin-bottom: 1rem;
+}
+
+.transaction-id {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #4B5563;
+  margin-bottom: 0.75rem;
+  padding: 0.5rem;
+  background-color: #F9FAFB;
+  border-radius: 0.5rem;
+  border: 1px solid #E5E7EB;
+}
+
+.comment-textarea {
+  width: 100%;
+  height: 6rem;
+  border: 1px solid #D1D5DB;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  background-color: #FFFFFF;
+  color: #111827;
+  font-size: 1rem;
+  resize: vertical;
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+
+.comment-textarea:focus {
+  outline: none;
+  border-color: #059669;
+  box-shadow: 0 0 0 2px rgba(5, 150, 105, 0.2);
+}
+
+.comment-textarea::placeholder {
+  color: #9CA3AF;
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.cancel-btn {
+  padding: 0.75rem 1.5rem;
+  background-color: #D1D5DB;
+  color: #374151;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.875rem;
+  font-weight: 500;
+  flex: 1;
+}
+
+.cancel-btn:hover {
+  background-color: #9CA3AF;
+  transform: scale(1.05);
+}
+
+.save-btn {
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(to right, #059669, #10B981);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  font-size: 0.875rem;
+  font-weight: 600;
+  flex: 2;
+}
+
+.save-btn:hover {
+  background: linear-gradient(to right, #047857, #059669);
+  transform: scale(1.05);
+}
+
+.save-btn:disabled {
+  background: #9CA3AF;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* CrossSwitch Dashboard specific styles */
+.crossswitch-dashboard .modal-title {
+  color: #059669;
+}
+
+.crossswitch-dashboard .comment-textarea:focus {
+  border-color: #059669;
+  box-shadow: 0 0 0 2px rgba(5, 150, 105, 0.2);
+}
+
+.crossswitch-dashboard .save-btn {
+  background: linear-gradient(to right, #059669, #10B981);
+}
+
+.crossswitch-dashboard .save-btn:hover {
+  background: linear-gradient(to right, #047857, #059669);
+}
+
+/* Peach Dashboard specific styles */
+.peach-dashboard .modal-title {
+  color: #2D6A5A;
+}
+
+.peach-dashboard .comment-textarea:focus {
+  border-color: #2D6A5A;
+  box-shadow: 0 0 0 2px rgba(45, 106, 90, 0.2);
+}
+
+.peach-dashboard .save-btn {
+  background: linear-gradient(to right, #2D6A5A, #1A3E36);
+}
+
+.peach-dashboard .save-btn:hover {
+  background: linear-gradient(to right, #1A3E36, #FF6B35);
+}
+
+/* Ozow Dashboard specific styles */
+.ozow-dashboard .modal-title {
+  color: #1E40AF;
+}
+
+.ozow-dashboard .comment-textarea:focus {
+  border-color: #1E40AF;
+  box-shadow: 0 0 0 2px rgba(30, 64, 175, 0.2);
+}
+
+.ozow-dashboard .save-btn {
+  background: linear-gradient(to right, #1E40AF, #3B82F6);
+}
+
+.ozow-dashboard .save-btn:hover {
+  background: linear-gradient(to right, #1E3A8A, #1E40AF);
+}
+
+/* Modal animations */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  0% {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .modal-container {
+    width: 90vw;
+    padding: 1rem;
+  }
+  
+  .modal-buttons {
+    flex-direction: column;
+  }
+  
+  .cancel-btn,
+  .save-btn {
+    flex: none;
+    width: 100%;
+  }
+}

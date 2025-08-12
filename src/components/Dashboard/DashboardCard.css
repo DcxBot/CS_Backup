@@ -1,0 +1,99 @@
+/* Dashboard Card */
+.dashboard-card {
+  background-color: #FFFFFF;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border: 1px solid #E2E8F0;
+  transition: all 0.3s ease;
+  position: relative;
+  cursor: pointer;
+  flex: 1;
+  min-width: 0;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Card Header */
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.card-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1E293B;
+}
+
+.card-indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+/* Progress Container */
+.progress-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+/* Metrics Container */
+.metrics-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4375rem; /* 7px spacing */
+  margin-bottom: 1.5rem;
+}
+
+.metric-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  margin: 0.5rem 0; /* 8px top and bottom spacing */
+}
+
+.metric-label {
+  font-size: 0.875rem;
+  color: #64748B;
+  font-weight: 500;
+}
+
+.metric-value {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* View Dashboard Button */
+.view-dashboard-btn {
+  width: 100%;
+  background-color: #2D6A5A;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.875rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.view-dashboard-btn:hover {
+  background-color: #1A3E36;
+  transform: translateY(-1px);
+}
