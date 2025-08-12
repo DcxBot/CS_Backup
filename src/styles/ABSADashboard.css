@@ -1,0 +1,188 @@
+/* ABSA Dashboard Styles */
+.absa-dashboard {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Background Decorative Shapes */
+.absa-dashboard .bg-shape-1 {
+  position: absolute;
+  top: -100px;
+  right: -100px;
+  width: 300px;
+  height: 300px;
+  background: linear-gradient(135deg, #3B82F6 0%, #1E40AF 100%);
+  border-radius: 50%;
+  opacity: 0.1;
+  z-index: 1;
+}
+
+.absa-dashboard .bg-shape-2 {
+  position: absolute;
+  bottom: -150px;
+  left: -150px;
+  width: 400px;
+  height: 400px;
+  background: linear-gradient(135deg, #1E40AF 0%, #3B82F6 100%);
+  border-radius: 50%;
+  opacity: 0.05;
+  z-index: 1;
+}
+
+/* Dashboard Header */
+.absa-dashboard .dashboard-header {
+  text-align: left;
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+.absa-dashboard .main-title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #1E40AF;
+}
+
+.absa-dashboard .title-emphasis {
+  color: #3B82F6;
+}
+
+.absa-dashboard .subtitle {
+  font-size: 1.25rem;
+  color: #64748B;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.absa-dashboard .subtitle-emphasis {
+  color: #1E40AF;
+  font-weight: 600;
+}
+
+/* Summary Grid */
+.absa-dashboard .summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+/* Summary Cards */
+.absa-dashboard .summary-card {
+  background: #FFFFFF;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border: 1px solid #E2E8F0;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.absa-dashboard .summary-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Total Transactions Card Specific Styling */
+.absa-dashboard .total-card {
+  background-color: #CCFBF1 !important;
+}
+
+.absa-dashboard .total-card .card-icon {
+  background-color: rgb(45, 106, 90) !important;
+}
+
+.absa-dashboard .total-card .card-value {
+  color: rgb(45, 106, 90) !important;
+}
+
+/* Card Content */
+.absa-dashboard .summary-card .card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.absa-dashboard .summary-card .card-title {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #64748B;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.absa-dashboard .summary-card .card-icon {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.absa-dashboard .summary-card .card-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--card-accent-color, #1E40AF);
+  line-height: 1;
+}
+
+/* Filter Panel */
+.absa-dashboard .filter-panel {
+  background: #FFFFFF;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border: 1px solid #E2E8F0;
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+/* Transactions Table */
+.absa-dashboard .transactions-table {
+  background: #FFFFFF;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border: 1px solid #E2E8F0;
+  overflow: hidden;
+  position: relative;
+  z-index: 2;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .absa-dashboard .summary-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .absa-dashboard .main-title {
+    font-size: 2rem;
+  }
+  
+  .absa-dashboard .summary-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .absa-dashboard .dashboard-header {
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .absa-dashboard .summary-card {
+    padding: 1rem;
+  }
+  
+  .absa-dashboard .card-value {
+    font-size: 1.5rem;
+  }
+}

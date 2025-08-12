@@ -10,6 +10,7 @@ import HelloWorld from "./pages/Home/Home";
 import PeachDashboard from "./components/PeachDashboard/PeachDashboard";
 import OzowDashboard from "./components/OzowDashboard/OzowDashboard";
 import CrossSwitchDashboard from "./components/CrossSwitchDashboard/CrossSwitchDashboard";
+import ABSADashboard from "./components/ABSADashboard/ABSADashboard";
 import Navbar from "./components/Navbar/Navbar";
 import Reports from "./pages/Reports/Reports";
 import Notifications from "./pages/Notifications/Notifications";
@@ -68,6 +69,14 @@ function App() {
               element={
                 <AuthenticatedPage activePage="crossswitch">
                   <CrossSwitchDashboard />
+                </AuthenticatedPage>
+              }
+            />
+            <Route
+              path="/absa"
+              element={
+                <AuthenticatedPage activePage="absa">
+                  <ABSADashboard />
                 </AuthenticatedPage>
               }
             />

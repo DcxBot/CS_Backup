@@ -144,6 +144,21 @@
   padding-left: 2.75rem;
 }
 
+/* Calendar icon specific positioning for date inputs */
+.date-input-group .input-icon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  color: #6B7280;
+  transition: color 0.2s ease;
+}
+
+.date-input-group:hover .input-icon {
+  color: #FF6B35;
+}
+
 /* Select wrapper for dropdown arrow */
 .select-wrapper {
   position: relative;

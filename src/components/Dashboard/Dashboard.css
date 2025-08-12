@@ -55,12 +55,26 @@
   justify-content: flex-start;
   flex-wrap: nowrap;
   width: 100%;
+  max-width: 100%;
 }
 
 /* Responsive Design */
+@media (max-width: 1400px) {
+  .dashboard-grid {
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 1200px) {
+  .dashboard-grid {
+    gap: 1rem;
+  }
+}
+
 @media (max-width: 768px) {
   .dashboard-container {
     padding: 1rem;
+    min-width: auto;
   }
   
   .dashboard-grid {

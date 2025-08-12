@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Notifications.css";
 import {
@@ -16,31 +16,161 @@ import { EnvelopeIcon } from "../../Icons/SVGicons";
 function Notifications() {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [showDetailedView, setShowDetailedView] = useState(false);
+  const [notifications, setNotifications] = useState({});
+  const [readStatus, setReadStatus] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
-  // Generate dynamic alerts based on actual transaction data
-  const dynamicTransactionAlerts = generateTransactionAlerts(
-    crossSwitchDashboardData,
-    peachDashboardData,
-    ozowDashboardData
-  );
+  // Initialize notifications with read/unread status
+  useEffect(() => {
+    const initializeNotifications = () => {
+      setIsLoading(true);
 
-  const dynamicSystemNotifications = generateSystemNotifications(
-    crossSwitchDashboardData,
-    peachDashboardData,
-    ozowDashboardData
-  );
+      // Filter transaction alerts to only include those with valid transaction IDs
+      const allTransactionAlerts = generateTransactionAlerts(
+        crossSwitchDashboardData,
+        peachDashboardData,
+        ozowDashboardData
+      );
 
-  // Calculate total notifications count
-  const totalNotifications =
-    13 + // Transaction alerts (fixed count based on actual data)
-    4 + // System notifications
-    4 + // Reconciliation reports
-    1; // Security alerts
+      const transactionAlerts = allTransactionAlerts
+        .filter((alert) => alert.transactionId && alert.gateway) // Only keep alerts with transaction ID and gateway
+        .map((alert) => ({ ...alert, id: `ta_${alert.id}`, read: false }));
+
+      // Filter system notifications to only include those with valid transaction IDs
+      const allSystemNotifications = generateSystemNotifications(
+        crossSwitchDashboardData,
+        peachDashboardData,
+        ozowDashboardData
+      );
+
+      const systemNotifications = allSystemNotifications
+        .filter(
+          (notification) => notification.transactionId && notification.gateway
+        ) // Only keep notifications with transaction ID and gateway
+        .map((notification) => ({
+          ...notification,
+          id: `sn_${notification.id}`,
+          read: false,
+        }));
+
+      // Filter reconciliation reports to only include those with valid transaction IDs
+      const allReconciliationReports = getNotificationTypeData(
+        "reconciliationReports"
+      );
+      const reconciliationReports = allReconciliationReports
+        .filter((report) => report.transactionId && report.gateway) // Only keep reports with transaction ID and gateway
+        .map((report) => ({ ...report, id: `rr_${report.id}`, read: false }));
+
+      // Filter security alerts to only include those with valid transaction IDs
+      const allSecurityAlerts = getNotificationTypeData("securityAlerts");
+      const securityAlerts = allSecurityAlerts
+        .filter((alert) => alert.transactionId && alert.gateway) // Only keep alerts with transaction ID and gateway
+        .map((alert) => ({ ...alert, id: `sa_${alert.id}`, read: false }));
+
+      const notificationsData = {
+        transactionAlerts,
+        systemNotifications,
+        reconciliationReports,
+        securityAlerts,
+      };
+
+      setNotifications(notificationsData);
+
+      // Initialize read status for all notifications
+      const initialReadStatus = {};
+      [
+        ...transactionAlerts,
+        ...systemNotifications,
+        ...reconciliationReports,
+        ...securityAlerts,
+      ].forEach((notification) => {
+        initialReadStatus[notification.id] = false; // Set as unread by default
+      });
+      setReadStatus(initialReadStatus);
+
+      setIsLoading(false);
+    };
+
+    initializeNotifications();
+  }, []);
+
+  // Show loading state while initializing
+  if (isLoading) {
+    return (
+      <div className="notifications-container">
+        <div className="notifications-header">
+          <h1 className="notifications-title">
+            <span className="title-orange">Notifications</span>{" "}
+            <span className="title-green">Center</span>
+          </h1>
+          <p className="notifications-subtitle">Loading notifications...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Calculate dynamic counts with null checks
+  const getUnreadCount = (category) => {
+    if (!notifications[category] || !Array.isArray(notifications[category]))
+      return 0;
+    return notifications[category].filter((n) => !readStatus[n.id]).length;
+  };
+
+  const getTotalUnreadCount = () => {
+    if (!notifications || Object.keys(notifications).length === 0) return 0;
+    return Object.keys(notifications).reduce((total, category) => {
+      return total + getUnreadCount(category);
+    }, 0);
+  };
+
+  const getTotalNotificationsCount = () => {
+    if (!notifications || Object.keys(notifications).length === 0) return 0;
+    return Object.keys(notifications).reduce((total, category) => {
+      return total + (notifications[category]?.length || 0);
+    }, 0);
+  };
+
+  const getActionRequiredCount = () => {
+    if (!notifications || Object.keys(notifications).length === 0) return 0;
+    return Object.keys(notifications).reduce((total, category) => {
+      return (
+        total +
+        (notifications[category]?.filter(
+          (n) => n.actionRequired && !readStatus[n.id]
+        ).length || 0)
+      );
+    }, 0);
+  };
+
+  const getHighPriorityCount = () => {
+    if (!notifications || Object.keys(notifications).length === 0) return 0;
+    return Object.keys(notifications).reduce((total, category) => {
+      return (
+        total +
+        (notifications[category]?.filter(
+          (n) => n.type === "error" && !readStatus[n.id]
+        ).length || 0)
+      );
+    }, 0);
+  };
 
   const handleCategoryClick = (categoryType) => {
     setSelectedCategory(categoryType);
     setShowDetailedView(true);
+
+    // Mark all notifications in this category as read when viewed
+    if (
+      notifications &&
+      notifications[categoryType] &&
+      Array.isArray(notifications[categoryType])
+    ) {
+      const newReadStatus = { ...readStatus };
+      notifications[categoryType].forEach((notification) => {
+        newReadStatus[notification.id] = true;
+      });
+      setReadStatus(newReadStatus);
+    }
   };
 
   const handleBackClick = () => {
@@ -48,9 +178,32 @@ function Notifications() {
     setSelectedCategory(null);
   };
 
+  // Mark individual notification as read
+  const markAsRead = (notificationId) => {
+    setReadStatus((prev) => ({
+      ...prev,
+      [notificationId]: true,
+    }));
+  };
+
+  // Mark all notifications as read
+  const markAllAsRead = () => {
+    const newReadStatus = {};
+    Object.keys(notifications).forEach((category) => {
+      notifications[category].forEach((notification) => {
+        newReadStatus[notification.id] = true;
+      });
+    });
+    setReadStatus(newReadStatus);
+  };
+
   // Handle action button clicks to navigate to specific transactions
   const handleActionButtonClick = (notification) => {
-    if (notification.transactionId) {
+    // Mark as read when action is taken
+    markAsRead(notification.id);
+
+    // Only navigate if we have valid transaction data
+    if (notification.transactionId && notification.gateway) {
       // Determine which dashboard to navigate to based on gateway
       let dashboardPath = "/";
       let searchParams = "";
@@ -79,6 +232,11 @@ function Notifications() {
 
       // Navigate to the dashboard with the transaction ID
       navigate(`${dashboardPath}${searchParams}`);
+    } else {
+      console.warn(
+        "Notification missing required transaction data:",
+        notification
+      );
     }
   };
 
@@ -153,19 +311,8 @@ function Notifications() {
   };
 
   if (showDetailedView && selectedCategory) {
-    const getNotifications = () => {
-      if (!selectedCategory) return [];
-
-      if (selectedCategory === "transactionAlerts") {
-        return dynamicTransactionAlerts;
-      } else if (selectedCategory === "systemNotifications") {
-        return dynamicSystemNotifications;
-      }
-
-      return getNotificationTypeData(selectedCategory);
-    };
-
-    const notifications = getNotifications();
+    // Get notifications for the selected category safely
+    const categoryNotifications = notifications[selectedCategory] || [];
     const categoryTitle = getNotificationTypeTitle(selectedCategory);
     const categoryIcon =
       selectedCategory === "transactionAlerts" ? (
@@ -226,7 +373,7 @@ function Notifications() {
           <div className="category-header">
             <div className="category-icon">{categoryIcon}</div>
             <h2 className="category-title">
-              {categoryTitle} ({notifications.length})
+              {categoryTitle} ({categoryNotifications.length})
             </h2>
           </div>
           <div className="header-chevron">
@@ -242,80 +389,45 @@ function Notifications() {
         </div>
 
         <div className="detailed-notifications-list">
-          {notifications.map((notification) => (
+          {categoryNotifications.map((notification) => (
             <div
               key={notification.id}
-              className="notification-item"
-              style={{ backgroundColor: getStatusColor(notification.type) }}
+              className={`notification-item ${notification.type} ${
+                notification.actionRequired ? "action-required" : ""
+              }`}
             >
-              <div className="notification-left">
-                <div className="status-indicator">
-                  {getStatusIcon(notification.type)}
+              <div className="notification-icon">
+                {getStatusIcon(notification.type)}
+              </div>
+              <div className="notification-details">
+                <div className="notification-title">{notification.title}</div>
+                <div className="notification-description">
+                  {notification.description}
                 </div>
-                <div className="notification-content">
-                  <h3 className="notification-title">{notification.title}</h3>
-                  <p className="notification-description">
-                    {notification.description}
-                  </p>
-                  <div className="notification-meta">
-                    <span className="timestamp">
-                      <svg
-                        width="12"
-                        height="12"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                      >
-                        <circle
-                          cx="12"
-                          cy="12"
-                          r="10"
-                          stroke="#64748b"
-                          strokeWidth="2"
-                          fill="none"
-                        />
-                        <polyline
-                          points="12,6 12,12 16,14"
-                          stroke="#64748b"
-                          strokeWidth="2"
-                          fill="none"
-                        />
-                      </svg>
-                      {notification.timestamp}
+                <div className="notification-meta">
+                  <span className="notification-timestamp">
+                    {notification.timestamp}
+                  </span>
+                  {notification.transactionId && notification.gateway && (
+                    <span className="transaction-info">
+                      {notification.transactionId} • {notification.gateway}
                     </span>
-                  </div>
+                  )}
                 </div>
               </div>
-              <div className="notification-right">
-                <button
-                  className="action-button primary"
-                  onClick={() => handleActionButtonClick(notification)}
-                >
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
-                    <path
-                      d="M5 12h14M12 5l7 7-7 7"
-                      stroke="white"
-                      strokeWidth="2"
-                      fill="none"
-                    />
-                  </svg>
-                  {notification.actionButton}
-                </button>
-                {notification.actionRequired && (
-                  <button className="action-button secondary">
-                    Action Required
+              {notification.actionRequired &&
+                notification.transactionId &&
+                notification.gateway && (
+                  <button
+                    className="action-button"
+                    onClick={() => handleActionButtonClick(notification)}
+                  >
+                    {notification.actionButton || "Investigate"}
                   </button>
                 )}
-                <div className="item-chevron">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                    <path
-                      d="M6 9l6 6 6-6"
-                      stroke="#64748b"
-                      strokeWidth="2"
-                      fill="none"
-                    />
-                  </svg>
-                </div>
-              </div>
+              {!notification.transactionId || !notification.gateway ? (
+                <span className="info-only-badge">Info Only</span>
+              ) : null}
             </div>
           ))}
         </div>
@@ -362,7 +474,7 @@ function Notifications() {
             </svg>
           </div>
           <div className="card-content">
-            <div className="card-count">{totalNotifications}</div>
+            <div className="card-count">{getTotalNotificationsCount()}</div>
             <div className="card-label">Total Notifications</div>
           </div>
         </div>
@@ -376,7 +488,7 @@ function Notifications() {
             />
           </div>
           <div className="card-content">
-            <div className="card-count">9</div>
+            <div className="card-count">{getTotalUnreadCount()}</div>
             <div className="card-label">Unread</div>
           </div>
         </div>
@@ -390,7 +502,7 @@ function Notifications() {
             />
           </div>
           <div className="card-content">
-            <div className="card-count">8</div>
+            <div className="card-count">{getActionRequiredCount()}</div>
             <div className="card-label">Action Required</div>
           </div>
         </div>
@@ -404,7 +516,7 @@ function Notifications() {
             />
           </div>
           <div className="card-content">
-            <div className="card-count">3</div>
+            <div className="card-count">{getHighPriorityCount()}</div>
             <div className="card-label">High Priority</div>
           </div>
         </div>
@@ -415,9 +527,11 @@ function Notifications() {
         <div className="all-notifications-header">
           <div className="header-left">
             <h2 className="all-notifications-title">All Notifications</h2>
-            <span className="unread-badge">9 Unread</span>
+            <span className="unread-badge">{getTotalUnreadCount()} Unread</span>
           </div>
-          <button className="mark-all-read-btn">Mark All as Read</button>
+          <button className="mark-all-read-btn" onClick={markAllAsRead}>
+            Mark All as Read
+          </button>
         </div>
 
         <div className="notification-categories">
@@ -438,11 +552,15 @@ function Notifications() {
               </div>
               <div className="category-info">
                 <span className="category-name">Transaction Alerts</span>
-                <span className="category-count">(13)</span>
+                <span className="category-count">
+                  ({getUnreadCount("transactionAlerts")})
+                </span>
               </div>
             </div>
             <div className="category-right">
-              <span className="category-unread">13</span>
+              <span className="category-unread">
+                {getUnreadCount("transactionAlerts")}
+              </span>
               <svg
                 className="chevron-right"
                 width="16"
@@ -477,11 +595,15 @@ function Notifications() {
               </div>
               <div className="category-info">
                 <span className="category-name">System Notifications</span>
-                <span className="category-count">(4)</span>
+                <span className="category-count">
+                  ({getUnreadCount("systemNotifications")})
+                </span>
               </div>
             </div>
             <div className="category-right">
-              <span className="category-unread">4</span>
+              <span className="category-unread">
+                {getUnreadCount("systemNotifications")}
+              </span>
               <svg
                 className="chevron-right"
                 width="16"
@@ -534,11 +656,15 @@ function Notifications() {
               </div>
               <div className="category-info">
                 <span className="category-name">Reconciliation Reports</span>
-                <span className="category-count">(4)</span>
+                <span className="category-count">
+                  ({getUnreadCount("reconciliationReports")})
+                </span>
               </div>
             </div>
             <div className="category-right">
-              <span className="category-unread">4</span>
+              <span className="category-unread">
+                {getUnreadCount("reconciliationReports")}
+              </span>
               <svg
                 className="chevron-right"
                 width="16"
@@ -588,13 +714,13 @@ function Notifications() {
               <div className="category-info">
                 <span className="category-name">Security & Pattern Alerts</span>
                 <span className="category-count">
-                  ({getNotificationTypeData("securityAlerts").length})
+                  ({getUnreadCount("securityAlerts")})
                 </span>
               </div>
             </div>
             <div className="category-right">
               <span className="category-unread">
-                {getNotificationTypeData("securityAlerts").length}
+                {getUnreadCount("securityAlerts")}
               </span>
               <svg
                 className="chevron-right"

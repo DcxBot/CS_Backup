@@ -126,6 +126,46 @@ const Dashboard = () => {
       },
       indicatorColor: "#2D6A5A",
     },
+    {
+      id: "absa",
+      title: "ABSA",
+      status: {
+        type: "success",
+        text: "On Track",
+        className: "status-success",
+      },
+      progress: {
+        percentage: 92.1,
+        color: "#3B82F6",
+        strokeWidth: 8,
+      },
+      metrics: {
+        totalTransactions: {
+          label: "Total Transactions",
+          value: "18,643",
+          className: "metric-total",
+        },
+        matched: {
+          label: "Matched",
+          value: "17,167",
+          className: "metric-matched",
+          color: "#22C55E",
+        },
+        unmatched: {
+          label: "Unmatched",
+          value: "1,401",
+          className: "metric-unmatched",
+          color: "#EF4444",
+        },
+        exceptions: {
+          label: "Exceptions",
+          value: "75",
+          className: "metric-exceptions",
+          color: "#F59E0B",
+        },
+      },
+      indicatorColor: "#3B82F6",
+    },
   ]);
 
   const handleViewDashboard = (cardId) => {
@@ -135,6 +175,8 @@ const Dashboard = () => {
       navigate("/ozow");
     } else if (cardId === "crossswitch") {
       navigate("/crossswitch");
+    } else if (cardId === "absa") {
+      navigate("/absa");
     } else {
       console.log(`Navigating to ${cardId} dashboard`);
       // Future implementation for other dashboards

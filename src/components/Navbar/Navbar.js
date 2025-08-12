@@ -185,6 +185,12 @@ const Navbar = ({ onLogout, activePage = "home" }) => {
             </div>
           )}
 
+          {activePage === "absa" && (
+            <div className="nav-item active">
+              <span>ABSA Dashboard</span>
+            </div>
+          )}
+
           <div
             className={`nav-item ${activePage === "reports" ? "active" : ""}`}
             onClick={() => navigate("/reports")}
