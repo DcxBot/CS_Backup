@@ -291,8 +291,6 @@ export function BellIcon({ hasNotification = false }) {
   );
 }
 
-
-
 //new icons:
 // Modern SVG Icons for CrossSwitch Notification System
 // Clean, minimal design with consistent styling
@@ -368,7 +366,7 @@ const NotificationIcons = {
       <circle cx="12" cy="12" r="10" fill="${color}"/>
       <path d="M8 12L11 15L16 9" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
-  `
+  `,
 };
 
 // Usage Examples:
@@ -376,17 +374,17 @@ const NotificationIcons = {
 // React Component Usage
 const IconComponent = ({ type, size = 24, color }) => {
   return (
-    <div 
-      dangerouslySetInnerHTML={{ 
-        __html: NotificationIcons[type](size, color) 
-      }} 
+    <div
+      dangerouslySetInnerHTML={{
+        __html: NotificationIcons[type](size, color),
+      }}
     />
   );
 };
 
 // Direct HTML Usage
 const createIcon = (type, size = 24, color) => {
-  const iconElement = document.createElement('div');
+  const iconElement = document.createElement("div");
   iconElement.innerHTML = NotificationIcons[type](size, color);
   return iconElement.firstChild;
 };
